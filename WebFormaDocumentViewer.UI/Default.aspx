@@ -11,7 +11,7 @@
 <body>
     <form id="form1" runat="server">
         <div>
-            <cc:DocumentViewer runat="server" Width="500" Height="500" FilePath="sample.pdf" />
+            <cc:DocumentViewer runat="server" Width="500" Height="500" FilePath="~/sample.pdf" />
         </div>
     </form>
 </body>

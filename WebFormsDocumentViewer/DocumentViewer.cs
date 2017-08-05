@@ -11,13 +11,31 @@ namespace WebFormsDocumentViewer
     [ToolboxData("<{0}:DocumentViewer runat=server></{0}:DocumentViewer>")]
     public class DocumentViewer : WebControl
     {
+        private string filePath;
+
         [Category("Source File")]
         [Browsable(true)]
         [Description("Set path to source file.")]
         [Editor(typeof(UrlEditor), typeof(UITypeEditor))]
         public string FilePath
         {
-            get; set;
+            get
+            {
+                return filePath;
+            }
+            set
+            {
+                if (string.IsNullOrEmpty(value))
+                {
+                    filePath = string.Empty;
+                }
+                else
+                {
+                    int tilde = -1;
+                    tilde = value.IndexOf('~');
+                    filePath = tilde != -1 ? value.Substring((tilde + 2)).Trim() : value;
+                }
+            }
         }
 
         public override void RenderControl(HtmlTextWriter writer)

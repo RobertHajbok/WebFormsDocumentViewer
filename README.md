@@ -1,4 +1,4 @@
-### What is WebFormsDocumentViewer?
+﻿### What is WebFormsDocumentViewer?
 WebFormsDocumentViewer is a simple custom control that lets you embed documents (PDF and Word) in your ASP.NET WebForms pages.
 
 ### How do I get started?
@@ -19,6 +19,13 @@ Or on your web page:
 
 ```csharp
 <%@ Register Assembly="WebFormsDocumentViewer" Namespace="WebFormsDocumentViewer" TagPrefix="cc" %>
+```
+
+### Where can I get it?
+First, [install NuGet](http://docs.nuget.org/docs/start-here/installing-nuget). Then, install [WebForms.DocumentViewer](https://www.nuget.org/packages/WebForms.DocumentViewer/) from the package manager console:
+
+```
+PM> Install-Package WebForms.DocumentViewer
 ```
 
 ### How to use it?

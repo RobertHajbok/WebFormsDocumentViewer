@@ -47,3 +47,6 @@ If TempDirectoryPath is not supplied, the converted documents can be found in th
 
 ### Do you have an issue?
 Have a bug or a feature request? Please search for existing and closed issues before submitting a new one. If your problem or idea is not addressed yet, please open a new issue.
+
+### License, etc.
+WebFormsDocumentViewer is Copyright © 2017 Hajbok Robert under the [MIT](http://opensource.org/licenses/MIT) license.

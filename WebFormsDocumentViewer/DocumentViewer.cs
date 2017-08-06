@@ -1,5 +1,7 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Drawing.Design;
+using System.IO;
 using System.Text;
 using System.Web.UI;
 using System.Web.UI.Design;
@@ -12,6 +14,7 @@ namespace WebFormsDocumentViewer
     public class DocumentViewer : WebControl
     {
         private string filePath;
+        private string tempDirectoryPath;
 
         [Category("Source File")]
         [Browsable(true)]
@@ -38,14 +41,44 @@ namespace WebFormsDocumentViewer
             }
         }
 
+        public string TempDirectoryPath
+        {
+            get
+            {
+                return tempDirectoryPath;
+            }
+            set
+            {
+                if (string.IsNullOrEmpty(value))
+                {
+                    tempDirectoryPath = string.Empty;
+                }
+                else
+                {
+                    int tilde = -1;
+                    tilde = value.IndexOf('~');
+                    tempDirectoryPath = tilde != -1 ? value.Substring((tilde + 2)).Trim() : value;
+                }
+            }
+        }
+
         public override void RenderControl(HtmlTextWriter writer)
         {
             try
             {
+                string fileExtension = Path.GetExtension(FilePath);
+                if (fileExtension == ".doc" || fileExtension == ".docx")
+                {
+                    if (string.IsNullOrEmpty(TempDirectoryPath))
+                        TempDirectoryPath = "Temp";
+                    FilePath = WordToPdfConverter.Convert(FilePath, TempDirectoryPath);
+                    if (string.IsNullOrEmpty(FilePath))
+                        throw new Exception("An error ocurred while trying to convert Word to PDF");
+                }
                 StringBuilder sb = new StringBuilder();
-                sb.Append("<iframe src=" + FilePath.ToString() + " ");
+                sb.Append("<iframe src=" + FilePath?.ToString() + " ");
                 sb.Append("width=" + Width.ToString() + " ");
-                sb.Append("height=" + Height.ToString() + " ");
+                sb.Append("height=" + Height.ToString() + ">");
                 sb.Append("</iframe>");
 
                 writer.RenderBeginTag(HtmlTextWriterTag.Div);

@@ -58,7 +58,7 @@ PowerPoint documents are converted to PDF documents, then rendered in iframe. Yo
 You can embed a PowerPoint document as shown below:
 
 ```html
-<cc:DocumentViewer runat="server" Width="500" Height="500" FilePath="sample.docx" TempDirectoryPath="~/TempFiles" />
+<cc:DocumentViewer runat="server" Width="500" Height="500" FilePath="sample.pptx" TempDirectoryPath="~/TempFiles" />
 ```
 
 If TempDirectoryPath is not supplied, the converted documents can be found in the Temp directory of the project root.

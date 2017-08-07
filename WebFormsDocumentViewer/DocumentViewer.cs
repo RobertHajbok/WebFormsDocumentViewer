@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Office.Core;
+using System;
 using System.ComponentModel;
 using System.Drawing.Design;
 using System.IO;
@@ -6,6 +7,7 @@ using System.Text;
 using System.Web.UI;
 using System.Web.UI.Design;
 using System.Web.UI.WebControls;
+using WebFormsDocumentViewer.Infrastructure;
 
 namespace WebFormsDocumentViewer
 {
@@ -67,22 +69,17 @@ namespace WebFormsDocumentViewer
             try
             {
                 string fileExtension = Path.GetExtension(FilePath);
-                if (fileExtension == ".doc" || fileExtension == ".docx")
+                SupportedExtensions extension = (SupportedExtensions)Enum.Parse(typeof(SupportedExtensions), fileExtension.Replace(".",""));
+                Infrastructure.IConverter converter = ConverterFactory.GetConverter(extension);
+                if(converter != null)
                 {
                     if (string.IsNullOrEmpty(TempDirectoryPath))
                         TempDirectoryPath = "Temp";
-                    FilePath = WordToPdfConverter.Convert(FilePath, TempDirectoryPath);
+                    FilePath = converter.Convert(FilePath, TempDirectoryPath);
                     if (string.IsNullOrEmpty(FilePath))
-                        throw new Exception("An error ocurred while trying to convert Word to PDF");
+                        throw new Exception("An error ocurred while trying to convert the file");
                 }
-                else if (fileExtension == ".ppt" || fileExtension == ".pptx")
-                {
-                    if (string.IsNullOrEmpty(TempDirectoryPath))
-                        TempDirectoryPath = "Temp";
-                    FilePath = PowerPointToPdfConverter.Convert(FilePath, TempDirectoryPath);
-                    if (string.IsNullOrEmpty(FilePath))
-                        throw new Exception("An error ocurred while trying to convert PowerPoint to PDF");
-                }
+
                 StringBuilder sb = new StringBuilder();
                 sb.Append("<iframe src=" + FilePath?.ToString() + " ");
                 sb.Append("width=" + Width.ToString() + " ");

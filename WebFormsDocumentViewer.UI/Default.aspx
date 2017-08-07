@@ -26,7 +26,7 @@
                         <div class="card-block">
                             <h4 class="card-title">PDF Viewer</h4>
                             <p class="card-text">This renders a PDF document in an iframe.</p>
-                            <cc:DocumentViewer runat="server" Width="500" Height="500" FilePath="~/sample.pdf" />
+                            <cc:DocumentViewer runat="server" Width="500" Height="500" FilePath="~/Samples/sample.pdf" />
                         </div>
                     </div>
                 </div>
@@ -38,7 +38,7 @@
                                 This converts the Word document to PDF and renders it in an iframe. 
                                 You should have Microsoft Office installed for this.
                             </p>
-                            <cc:DocumentViewer runat="server" Width="500" Height="500" FilePath="~/sample.docx" TempDirectoryPath="~/TempFiles" />
+                            <cc:DocumentViewer runat="server" Width="500" Height="500" FilePath="~/Samples/sample.docx" TempDirectoryPath="~/TempFiles" />
                         </div>
                     </div>
                 </div>
@@ -53,7 +53,19 @@
                                 This converts the PowerPoint document to PDF and renders it in an iframe. 
                                 You should have Microsoft Office installed for this.
                             </p>
-                            <cc:DocumentViewer runat="server" Width="500" Height="500" FilePath="~/sample.pptx" TempDirectoryPath="~/TempFiles" />
+                            <cc:DocumentViewer runat="server" Width="500" Height="500" FilePath="~/Samples/sample.pptx" TempDirectoryPath="~/TempFiles" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col col-md-6">
+                    <div class="card text-center">
+                        <div class="card-block">
+                            <h4 class="card-title">Excel Viewer</h4>
+                            <p class="card-text">
+                                This converts the Excel document to HTML and renders it in an iframe. 
+                                You should have Microsoft Office installed for this.
+                            </p>
+                            <cc:DocumentViewer runat="server" Width="500" Height="500" FilePath="~/Samples/sample.xlsx" TempDirectoryPath="~/TempFiles" />
                         </div>
                     </div>
                 </div>

@@ -4,8 +4,9 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Web;
+using WebFormsDocumentViewer.Infrastructure;
 
-namespace WebFormsDocumentViewer
+namespace WebFormsDocumentViewer.Converters
 {
     /// <summary>
     /// Helper class to convert PowerPoint documents to PDF
@@ -13,7 +14,7 @@ namespace WebFormsDocumentViewer
     /// <remarks>
     /// You should also have Microsoft Office installed on the server for this to work
     /// </remarks>
-    internal static class PowerPointToPdfConverter
+    internal class PowerPointToPdfConverter : IConverter
     {
         /// <summary>
         /// Converts the PowerPoint document to PDF
@@ -21,7 +22,7 @@ namespace WebFormsDocumentViewer
         /// <param name="filePath">Path to the PowerPoint file</param>
         /// <param name="destinationPath">Directory where the PDF file will be saved</param>
         /// <returns>Path of the converted file</returns>
-        internal static string Convert(string filePath, string destinationPath)
+        public string Convert(string filePath, string destinationPath)
         {
             Application appPowerPoint = new Application();
             Presentation powerPointDocument = null;

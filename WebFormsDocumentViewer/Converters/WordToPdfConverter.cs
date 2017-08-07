@@ -2,8 +2,9 @@
 using System;
 using System.IO;
 using System.Web;
+using WebFormsDocumentViewer.Infrastructure;
 
-namespace WebFormsDocumentViewer
+namespace WebFormsDocumentViewer.Converters
 {
     /// <summary>
     /// Helper class to convert Word documents to PDF
@@ -11,7 +12,7 @@ namespace WebFormsDocumentViewer
     /// <remarks>
     /// You should also have Microsoft Office installed on the server for this to work
     /// </remarks>
-    internal static class WordToPdfConverter
+    internal class WordToPdfConverter : IConverter
     {
         /// <summary>
         /// Converts the Word document to PDF
@@ -19,7 +20,7 @@ namespace WebFormsDocumentViewer
         /// <param name="filePath">Path to the Word file</param>
         /// <param name="destinationPath">Directory where the PDF file will be saved</param>
         /// <returns>Path of the converted file</returns>
-        internal static string Convert(string filePath, string destinationPath)
+        public string Convert(string filePath, string destinationPath)
         {
             Application appWord = new Application();
             try

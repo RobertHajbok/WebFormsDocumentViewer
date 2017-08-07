@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.26430.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebFormsDocumentViewer", "WebFormsDocumentViewer\WebFormsDocumentViewer.csproj", "{CBB712CD-DC08-4F05-808C-A41024538E0B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebFormsDocumentViewer.UI", "WebFormaDocumentViewer.UI\WebFormsDocumentViewer.UI.csproj", "{FDCC29C0-EE5C-43B1-8109-9DFBD214384C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebFormsDocumentViewer.UI", "WebFormsDocumentViewer.UI\WebFormsDocumentViewer.UI.csproj", "{FDCC29C0-EE5C-43B1-8109-9DFBD214384C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

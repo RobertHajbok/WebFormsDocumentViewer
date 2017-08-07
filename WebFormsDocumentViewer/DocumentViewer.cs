@@ -75,6 +75,14 @@ namespace WebFormsDocumentViewer
                     if (string.IsNullOrEmpty(FilePath))
                         throw new Exception("An error ocurred while trying to convert Word to PDF");
                 }
+                else if (fileExtension == ".ppt" || fileExtension == ".pptx")
+                {
+                    if (string.IsNullOrEmpty(TempDirectoryPath))
+                        TempDirectoryPath = "Temp";
+                    FilePath = PowerPointToPdfConverter.Convert(FilePath, TempDirectoryPath);
+                    if (string.IsNullOrEmpty(FilePath))
+                        throw new Exception("An error ocurred while trying to convert PowerPoint to PDF");
+                }
                 StringBuilder sb = new StringBuilder();
                 sb.Append("<iframe src=" + FilePath?.ToString() + " ");
                 sb.Append("width=" + Width.ToString() + " ");

@@ -11,7 +11,7 @@ namespace WebFormsDocumentViewer
     /// <remarks>
     /// You should also have Microsoft Office installed on the server for this to work
     /// </remarks>
-    public static class WordToPdfConverter
+    internal static class WordToPdfConverter
     {
         /// <summary>
         /// Converts the Word document to PDF
@@ -19,7 +19,7 @@ namespace WebFormsDocumentViewer
         /// <param name="filePath">Path to the Word file</param>
         /// <param name="destinationPath">Directory where the PDF file will be saved</param>
         /// <returns>Path of the converted file</returns>
-        public static string Convert(string filePath, string destinationPath)
+        internal static string Convert(string filePath, string destinationPath)
         {
             Application appWord = new Application();
             try
@@ -40,8 +40,9 @@ namespace WebFormsDocumentViewer
             }
             finally
             {
-                appWord.Documents.Close(WdSaveOptions.wdDoNotSaveChanges, WdOriginalFormat.wdOriginalDocumentFormat, false);
-                appWord.Quit();
+                // appWord.Documents.Close removed because sometimes it prompts for save changes
+                // even if WdSaveOptions.wdDoNotSaveChanges is set
+                appWord.Quit(WdSaveOptions.wdDoNotSaveChanges, WdOriginalFormat.wdOriginalDocumentFormat, false);
             }
         }
     }

@@ -43,6 +43,21 @@
                     </div>
                 </div>
             </div>
+            <br />
+            <div class="row">                
+                <div class="col col-md-6">
+                    <div class="card text-center">
+                        <div class="card-block">
+                            <h4 class="card-title">PowerPoint Viewer</h4>
+                            <p class="card-text">
+                                This converts the PowerPoint document to PDF and renders it in an iframe. 
+                                You should have Microsoft Office installed for this.
+                            </p>
+                            <cc:DocumentViewer runat="server" Width="500" Height="500" FilePath="~/sample.pptx" TempDirectoryPath="~/TempFiles" />
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <br />
     </form>

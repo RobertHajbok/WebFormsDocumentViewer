@@ -15,7 +15,7 @@ namespace WebFormsDocumentViewer.Converters.Tests
             string newFilePath = converter.Convert("test.pptx", "Temp", "");
             Assert.That(newFilePath, Is.Null);
         }
-
+        
         [Test]
         [Category("INTEGRATION")]
         public void Convert_When_PowerPointFileIsFound_Then_NewFilePathIsReturned()

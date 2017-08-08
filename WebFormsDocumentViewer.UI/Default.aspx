@@ -25,9 +25,11 @@
                     <div class="card text-center">
                         <div class="card-block">
                             <h4 class="card-title">PDF Viewer</h4>
-                            <p class="card-text">This renders a PDF document in an iframe and uses 
+                            <p class="card-text">
+                                This renders a PDF document in an iframe and uses 
                                 <a href="https://mozilla.github.io/pdf.js/" target="_blank">PDF.js</a> as the PDF renderer 
-                                instead of <a href="https://acrobat.adobe.com/uk/en/" target="_blank">Adobe Reader</a>.</p>
+                                instead of <a href="https://acrobat.adobe.com/uk/en/" target="_blank">Adobe Reader</a>.
+                            </p>
                             <cc:DocumentViewer runat="server" Width="500" Height="500" FilePath="~/Samples/sample.pdf" PdfRenderer="PdfJs" />
                         </div>
                     </div>
@@ -46,7 +48,7 @@
                 </div>
             </div>
             <br />
-            <div class="row">                
+            <div class="row">
                 <div class="col col-md-6">
                     <div class="card text-center">
                         <div class="card-block">
@@ -72,8 +74,8 @@
                     </div>
                 </div>
             </div>
+            <br />
         </div>
-        <br />
     </form>
 </body>
 </html>

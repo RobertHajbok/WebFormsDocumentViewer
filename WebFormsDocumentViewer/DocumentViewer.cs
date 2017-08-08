@@ -1,5 +1,4 @@
-﻿using Microsoft.Office.Core;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Drawing.Design;
 using System.IO;
@@ -17,6 +16,7 @@ namespace WebFormsDocumentViewer
     {
         private string filePath;
         private string tempDirectoryPath;
+        private PdfRenderers pdfRenderers;
 
         [Category("Source File")]
         [Browsable(true)]
@@ -43,6 +43,10 @@ namespace WebFormsDocumentViewer
             }
         }
 
+        [Category("Temporary Directory Path")]
+        [Browsable(true)]
+        [Description("Set path to the directory where the files will be converted.")]
+        [Editor(typeof(UrlEditor), typeof(UITypeEditor))]
         public string TempDirectoryPath
         {
             get
@@ -64,13 +68,28 @@ namespace WebFormsDocumentViewer
             }
         }
 
+        [Category("PDF Renderer")]
+        [Browsable(true)]
+        [Description("Set the PDF renderer for PDF documents or documents that are converted to PDF. Adobe Reader is used by default")]
+        public PdfRenderers PdfRenderer
+        {
+            get
+            {
+                return pdfRenderers;
+            }
+            set
+            {
+                pdfRenderers = value;
+            }
+        }
+
         public override void RenderControl(HtmlTextWriter writer)
         {
             try
             {
                 string fileExtension = Path.GetExtension(FilePath);
                 SupportedExtensions extension = (SupportedExtensions)Enum.Parse(typeof(SupportedExtensions), fileExtension.Replace(".",""));
-                Infrastructure.IConverter converter = ConverterFactory.GetConverter(extension);
+                IConverter converter = ConverterFactory.GetConverter(extension);
                 if(converter != null)
                 {
                     if (string.IsNullOrEmpty(TempDirectoryPath))
@@ -79,6 +98,9 @@ namespace WebFormsDocumentViewer
                     if (string.IsNullOrEmpty(FilePath))
                         throw new Exception("An error ocurred while trying to convert the file");
                 }
+
+                if (PdfRenderer == PdfRenderers.PdfJs)
+                    FilePath = "/Scripts/pdf.js/web/viewer.html?file=../../../" + FilePath;
 
                 StringBuilder sb = new StringBuilder();
                 sb.Append("<iframe src=" + FilePath?.ToString() + " ");

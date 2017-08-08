@@ -67,6 +67,7 @@
     <Compile Include="Infrastructure\IConverter.cs" />
     <Compile Include="DocumentViewer.cs" />
     <Compile Include="Converters\PowerPointToPdfConverter.cs" />
+    <Compile Include="PdfRenderers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SupportedExtensions.cs" />
     <Compile Include="Converters\WordToPdfConverter.cs" />

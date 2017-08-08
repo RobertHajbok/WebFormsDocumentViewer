@@ -2,9 +2,9 @@
 
 namespace WebFormsDocumentViewer.Infrastructure
 {
-    internal class ConverterFactory
+    public class ConverterFactory
     {
-        internal static IConverter GetConverter(SupportedExtensions extension)
+        public static IConverter GetConverter(SupportedExtensions extension)
         {
             IConverter converter = null;
             switch (extension)

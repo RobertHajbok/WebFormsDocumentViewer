@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Drawing.Design;
 using System.IO;
 using System.Text;
+using System.Web;
 using System.Web.UI;
 using System.Web.UI.Design;
 using System.Web.UI.WebControls;
@@ -85,16 +86,23 @@ namespace WebFormsDocumentViewer
 
         public override void RenderControl(HtmlTextWriter writer)
         {
+            writer.RenderBeginTag(HtmlTextWriterTag.Div);
+            writer.Write(BuildControl(HttpContext.Current.Server.MapPath("~")).ToString());
+            writer.RenderEndTag();
+        }
+
+        public StringBuilder BuildControl(string projectRootPath)
+        {
             try
             {
                 string fileExtension = Path.GetExtension(FilePath);
-                SupportedExtensions extension = (SupportedExtensions)Enum.Parse(typeof(SupportedExtensions), fileExtension.Replace(".",""));
+                SupportedExtensions extension = (SupportedExtensions)Enum.Parse(typeof(SupportedExtensions), fileExtension.Replace(".", ""));
                 IConverter converter = ConverterFactory.GetConverter(extension);
-                if(converter != null)
+                if (converter != null)
                 {
                     if (string.IsNullOrEmpty(TempDirectoryPath))
                         TempDirectoryPath = "Temp";
-                    FilePath = converter.Convert(FilePath, TempDirectoryPath);
+                    FilePath = converter.Convert(FilePath, TempDirectoryPath, projectRootPath);
                     if (string.IsNullOrEmpty(FilePath))
                         throw new Exception("An error ocurred while trying to convert the file");
                 }
@@ -107,16 +115,11 @@ namespace WebFormsDocumentViewer
                 sb.Append("width=" + Width.ToString() + " ");
                 sb.Append("height=" + Height.ToString() + ">");
                 sb.Append("</iframe>");
-
-                writer.RenderBeginTag(HtmlTextWriterTag.Div);
-                writer.Write(sb.ToString());
-                writer.RenderEndTag();
+                return sb;
             }
             catch
             {
-                writer.RenderBeginTag(HtmlTextWriterTag.Div);
-                writer.Write("Cannot display document viewer");
-                writer.RenderEndTag();
+                return new StringBuilder("Cannot display document viewer");
             }
         }
     }

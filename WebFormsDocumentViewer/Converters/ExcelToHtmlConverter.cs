@@ -1,7 +1,6 @@
 ﻿using Microsoft.Office.Interop.Excel;
 using System;
 using System.IO;
-using System.Web;
 using WebFormsDocumentViewer.Infrastructure;
 
 namespace WebFormsDocumentViewer.Converters
@@ -12,27 +11,28 @@ namespace WebFormsDocumentViewer.Converters
     /// <remarks>
     /// You should also have Microsoft Office installed on the server for this to work
     /// </remarks>
-    internal class ExcelToHtmlConverter : IConverter
+    public class ExcelToHtmlConverter : IConverter
     {
         /// <summary>
         /// Converts the Excel document to HTML
         /// </summary>
         /// <param name="filePath">Path to the Excel file</param>
         /// <param name="destinationPath">Directory where the HTML file will be saved</param>
+        /// <param name="projectRootPath">Root directory of the project or server</param>
         /// <returns>Path of the converted file</returns>
-        public string Convert(string filePath, string destinationPath)
+        public string Convert(string filePath, string destinationPath, string projectRootPath)
         {
             Application appExcel = new Application();
             try
             {
-                Workbook workbook = appExcel.Workbooks.Open(HttpContext.Current.Server.MapPath(filePath));
+                Workbook workbook = appExcel.Workbooks.Open(Path.Combine(projectRootPath, filePath));
                 string fileName = Path.GetFileNameWithoutExtension(filePath) + DateTime.Now.Ticks + ".html";
 
-                if (!Directory.Exists(HttpContext.Current.Server.MapPath(destinationPath)))
-                    Directory.CreateDirectory(HttpContext.Current.Server.MapPath(destinationPath));
+                if (!Directory.Exists(Path.Combine(projectRootPath, destinationPath)))
+                    Directory.CreateDirectory(Path.Combine(projectRootPath, destinationPath));
                 string newFilePath = Path.Combine(destinationPath, fileName);
 
-                workbook.SaveAs(HttpContext.Current.Server.MapPath(newFilePath), XlFileFormat.xlHtml);
+                workbook.SaveAs(Path.Combine(projectRootPath, newFilePath), XlFileFormat.xlHtml);
                 return newFilePath;
             }
             catch

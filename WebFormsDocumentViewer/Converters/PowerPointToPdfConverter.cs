@@ -4,7 +4,6 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Web;
 
 namespace WebFormsDocumentViewer.Converters
 {
@@ -14,30 +13,31 @@ namespace WebFormsDocumentViewer.Converters
     /// <remarks>
     /// You should also have Microsoft Office installed on the server for this to work
     /// </remarks>
-    internal class PowerPointToPdfConverter : Infrastructure.IConverter
+    public class PowerPointToPdfConverter : Infrastructure.IConverter
     {
         /// <summary>
         /// Converts the PowerPoint document to PDF
         /// </summary>
         /// <param name="filePath">Path to the PowerPoint file</param>
         /// <param name="destinationPath">Directory where the PDF file will be saved</param>
+        /// <param name="projectRootPath">Root directory of the project or server</param>
         /// <returns>Path of the converted file</returns>
-        public string Convert(string filePath, string destinationPath)
-        {
+        public string Convert(string filePath, string destinationPath, string projectRootPath)
+        {           
             Application appPowerPoint = new Application();
             Presentation powerPointDocument = null;
             try
             {
-                powerPointDocument = appPowerPoint.Presentations.Open(HttpContext.Current.Server.MapPath(filePath),
+                powerPointDocument = appPowerPoint.Presentations.Open(Path.Combine(projectRootPath, filePath), 
                     MsoTriState.msoFalse, MsoTriState.msoFalse, MsoTriState.msoFalse);
                 powerPointDocument.Final = false;
                 string fileName = Path.GetFileNameWithoutExtension(filePath) + DateTime.Now.Ticks + ".pdf";
 
-                if (!Directory.Exists(HttpContext.Current.Server.MapPath(destinationPath)))
-                    Directory.CreateDirectory(HttpContext.Current.Server.MapPath(destinationPath));
+                if (!Directory.Exists(Path.Combine(projectRootPath, destinationPath)))
+                    Directory.CreateDirectory(Path.Combine(projectRootPath, destinationPath));
                 string newFilePath = Path.Combine(destinationPath, fileName);
 
-                powerPointDocument.ExportAsFixedFormat(HttpContext.Current.Server.MapPath(newFilePath), PpFixedFormatType.ppFixedFormatTypePDF);
+                powerPointDocument.ExportAsFixedFormat(Path.Combine(projectRootPath, newFilePath), PpFixedFormatType.ppFixedFormatTypePDF);
                 return newFilePath;
             }
             catch

@@ -1,7 +1,6 @@
 ﻿using Microsoft.Office.Interop.Word;
 using System;
 using System.IO;
-using System.Web;
 using WebFormsDocumentViewer.Infrastructure;
 
 namespace WebFormsDocumentViewer.Converters
@@ -12,27 +11,28 @@ namespace WebFormsDocumentViewer.Converters
     /// <remarks>
     /// You should also have Microsoft Office installed on the server for this to work
     /// </remarks>
-    internal class WordToPdfConverter : IConverter
+    public class WordToPdfConverter : IConverter
     {
         /// <summary>
         /// Converts the Word document to PDF
         /// </summary>
         /// <param name="filePath">Path to the Word file</param>
         /// <param name="destinationPath">Directory where the PDF file will be saved</param>
+        /// <param name="projectRootPath">Root directory of the project or server</param>
         /// <returns>Path of the converted file</returns>
-        public string Convert(string filePath, string destinationPath)
+        public string Convert(string filePath, string destinationPath, string projectRootPath)
         {
             Application appWord = new Application();
             try
             {
-                Document wordDocument = appWord.Documents.Open(HttpContext.Current.Server.MapPath(filePath));
+                Document wordDocument = appWord.Documents.Open(Path.Combine(projectRootPath, filePath));
                 string fileName = Path.GetFileNameWithoutExtension(filePath) + DateTime.Now.Ticks + ".pdf";
 
-                if (!Directory.Exists(HttpContext.Current.Server.MapPath(destinationPath)))
-                    Directory.CreateDirectory(HttpContext.Current.Server.MapPath(destinationPath));
+                if (!Directory.Exists(Path.Combine(projectRootPath, destinationPath)))
+                    Directory.CreateDirectory(Path.Combine(projectRootPath, destinationPath));
                 string newFilePath = Path.Combine(destinationPath, fileName);
 
-                wordDocument.ExportAsFixedFormat(HttpContext.Current.Server.MapPath(newFilePath), WdExportFormat.wdExportFormatPDF);
+                wordDocument.ExportAsFixedFormat(Path.Combine(projectRootPath, newFilePath), WdExportFormat.wdExportFormatPDF);
                 return newFilePath;
             }
             catch

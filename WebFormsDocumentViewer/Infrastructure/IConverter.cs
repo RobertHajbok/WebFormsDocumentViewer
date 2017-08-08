@@ -3,8 +3,8 @@
     /// <summary>
     /// Defines methods to be implemented in converters
     /// </summary>
-    internal interface IConverter
+    public interface IConverter
     {
-        string Convert(string filePath, string destinationPath);
+        string Convert(string filePath, string destinationPath, string projectRootPath);
     }
 }

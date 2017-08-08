@@ -1,6 +1,6 @@
 ﻿namespace WebFormsDocumentViewer
 {
-    internal enum SupportedExtensions
+    public enum SupportedExtensions
     {
         pdf,
         doc,

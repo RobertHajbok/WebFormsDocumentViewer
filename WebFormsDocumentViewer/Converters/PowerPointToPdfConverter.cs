@@ -1,10 +1,10 @@
-﻿using Microsoft.Office.Interop.PowerPoint;
+﻿using Microsoft.Office.Core;
+using Microsoft.Office.Interop.PowerPoint;
 using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Web;
-using WebFormsDocumentViewer.Infrastructure;
 
 namespace WebFormsDocumentViewer.Converters
 {
@@ -14,7 +14,7 @@ namespace WebFormsDocumentViewer.Converters
     /// <remarks>
     /// You should also have Microsoft Office installed on the server for this to work
     /// </remarks>
-    internal class PowerPointToPdfConverter : IConverter
+    internal class PowerPointToPdfConverter : Infrastructure.IConverter
     {
         /// <summary>
         /// Converts the PowerPoint document to PDF
@@ -28,7 +28,9 @@ namespace WebFormsDocumentViewer.Converters
             Presentation powerPointDocument = null;
             try
             {
-                powerPointDocument = appPowerPoint.Presentations.Open(HttpContext.Current.Server.MapPath(filePath));
+                powerPointDocument = appPowerPoint.Presentations.Open(HttpContext.Current.Server.MapPath(filePath),
+                    MsoTriState.msoFalse, MsoTriState.msoFalse, MsoTriState.msoFalse);
+                powerPointDocument.Final = false;
                 string fileName = Path.GetFileNameWithoutExtension(filePath) + DateTime.Now.Ticks + ".pdf";
 
                 if (!Directory.Exists(HttpContext.Current.Server.MapPath(destinationPath)))

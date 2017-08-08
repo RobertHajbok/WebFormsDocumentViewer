@@ -99,7 +99,7 @@ namespace WebFormsDocumentViewer
                         throw new Exception("An error ocurred while trying to convert the file");
                 }
 
-                if (PdfRenderer == PdfRenderers.PdfJs)
+                if (PdfRenderer == PdfRenderers.PdfJs && !extension.ToString().StartsWith("xls"))
                     FilePath = "/Scripts/pdf.js/web/viewer.html?file=../../../" + FilePath;
 
                 StringBuilder sb = new StringBuilder();

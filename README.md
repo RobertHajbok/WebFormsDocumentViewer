@@ -1,5 +1,5 @@
 ﻿### What is WebFormsDocumentViewer?
-WebFormsDocumentViewer is a simple custom control that lets you embed documents (PDF, Word, PowerPoint, Excel and RichTextFormat) in your ASP.NET WebForms pages.
+WebFormsDocumentViewer is a simple custom control that lets you embed documents (PDF, Word, PowerPoint, Excel, RichTextFormat and Text) in your ASP.NET WebForms pages.
 
 ### How do I get started?
 First, add a reference in your web.config to the WebFormsDocumentViewer assembly:
@@ -90,6 +90,14 @@ You can embed a RichTextFormat document as shown below:
 If TempDirectoryPath is not supplied, the converted documents can be found in the Temp directory of the project root.
 If PdfRenderer is not supplied, Adobe Reader is used by default.
 
+### How to embed Text documents?
+For Text documents, a simple iframe is generated, so the following line is enough to embed a document:
+
+```html
+<cc:DocumentViewer runat="server" Width="500" Height="500" FilePath="~/sample.txt" />
+```
+
+Other parameters are not required, as browsers support text documents by default.
 
 ### Do you have an issue?
 Have a bug or a feature request? Please search for existing and closed issues before submitting a new one. If your problem or idea is not addressed yet, please open a new issue.

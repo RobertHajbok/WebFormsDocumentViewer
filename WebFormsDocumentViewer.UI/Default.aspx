@@ -90,6 +90,18 @@
                         </div>
                     </div>
                 </div>
+                <div class="col col-md-6">
+                    <div class="card text-center">
+                        <div class="card-block">
+                            <h4 class="card-title">Text Viewer</h4>
+                            <p class="card-text">
+                                This renders a Text document in an iframe. No conversion is needed as browsers support
+                                this by default.
+                            </p>
+                            <cc:DocumentViewer runat="server" Width="100%" Height="500" FilePath="~/Samples/sample.txt" />
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </form>

@@ -9,6 +9,7 @@
         pptx,
         xls,
         xlsx,
-        rtf
+        rtf,
+        txt
     }
 }

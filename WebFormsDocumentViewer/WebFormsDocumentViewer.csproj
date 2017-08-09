@@ -63,6 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Converters\ExcelToHtmlConverter.cs" />
+    <Compile Include="Converters\RtfToPdfConverter.cs" />
     <Compile Include="Infrastructure\ConverterFactory.cs" />
     <Compile Include="Infrastructure\IConverter.cs" />
     <Compile Include="DocumentViewer.cs" />

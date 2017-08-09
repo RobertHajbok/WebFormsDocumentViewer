@@ -21,6 +21,9 @@ namespace WebFormsDocumentViewer.Infrastructure
                 case SupportedExtensions.xlsx:
                     converter = new ExcelToHtmlConverter();
                     break;
+                case SupportedExtensions.rtf:
+                    converter = new RtfToPdfConverter();
+                    break;
             }
             return converter;
         }

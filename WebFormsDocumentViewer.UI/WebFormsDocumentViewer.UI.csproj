@@ -85,6 +85,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Samples\sample.pptx" />
     <Content Include="Samples\sample.xlsx" />
+    <Content Include="Samples\sample.rtf" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />

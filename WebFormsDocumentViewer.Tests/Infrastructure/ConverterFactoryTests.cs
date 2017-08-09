@@ -16,6 +16,7 @@ namespace WebFormsDocumentViewer.Infrastructure.Tests
             Assert.That(ConverterFactory.GetConverter(SupportedExtensions.pptx), Is.TypeOf<PowerPointToPdfConverter>());
             Assert.That(ConverterFactory.GetConverter(SupportedExtensions.xls), Is.TypeOf<ExcelToHtmlConverter>());
             Assert.That(ConverterFactory.GetConverter(SupportedExtensions.xlsx), Is.TypeOf<ExcelToHtmlConverter>());
+            Assert.That(ConverterFactory.GetConverter(SupportedExtensions.rtf), Is.TypeOf<RtfToPdfConverter>());
         }
     }
 }

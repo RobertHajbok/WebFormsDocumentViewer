@@ -30,7 +30,7 @@
                                 <a href="https://mozilla.github.io/pdf.js/" target="_blank">PDF.js</a> as the PDF renderer 
                                 instead of <a href="https://acrobat.adobe.com/uk/en/" target="_blank">Adobe Reader</a>.
                             </p>
-                            <cc:DocumentViewer runat="server" Width="500" Height="500" FilePath="~/Samples/sample.pdf" PdfRenderer="PdfJs" />
+                            <cc:DocumentViewer runat="server" Width="100%" Height="500" FilePath="~/Samples/sample.pdf" PdfRenderer="PdfJs" />
                         </div>
                     </div>
                 </div>
@@ -42,7 +42,7 @@
                                 This converts the Word document to PDF and renders it in an iframe. 
                                 You should have Microsoft Office installed for this.
                             </p>
-                            <cc:DocumentViewer runat="server" Width="500" Height="500" FilePath="~/Samples/sample.docx" TempDirectoryPath="~/TempFiles" />
+                            <cc:DocumentViewer runat="server" Width="100%" Height="500" FilePath="~/Samples/sample.docx" TempDirectoryPath="~/TempFiles" />
                         </div>
                     </div>
                 </div>
@@ -57,7 +57,7 @@
                                 This converts the PowerPoint document to PDF and renders it in an iframe. 
                                 You should have Microsoft Office installed for this.
                             </p>
-                            <cc:DocumentViewer runat="server" Width="500" Height="500" FilePath="~/Samples/sample.pptx" TempDirectoryPath="~/TempFiles" />
+                            <cc:DocumentViewer runat="server" Width="100%" Height="500" FilePath="~/Samples/sample.pptx" TempDirectoryPath="~/TempFiles" />
                         </div>
                     </div>
                 </div>
@@ -69,12 +69,28 @@
                                 This converts the Excel document to HTML and renders it in an iframe. 
                                 You should have Microsoft Office installed for this.
                             </p>
-                            <cc:DocumentViewer runat="server" Width="500" Height="500" FilePath="~/Samples/sample.xlsx" TempDirectoryPath="~/TempFiles" />
+                            <cc:DocumentViewer runat="server" Width="100%" Height="500" FilePath="~/Samples/sample.xlsx" TempDirectoryPath="~/TempFiles" />
                         </div>
                     </div>
                 </div>
             </div>
             <br />
+            <div class="row">
+                <div class="col col-md-6">
+                    <div class="card text-center">
+                        <div class="card-block">
+                            <h4 class="card-title">RichTextFormat Viewer</h4>
+                            <p class="card-text">
+                                This converts the RichTextFormat document to PDF and renders it in an iframe using 
+                                <a href="https://mozilla.github.io/pdf.js/" target="_blank">PDF.js</a>. 
+                                You should have Microsoft Office installed for this.
+                            </p>
+                            <cc:DocumentViewer runat="server" Width="100%" Height="500" FilePath="~/Samples/sample.rtf" TempDirectoryPath="~/TempFiles"
+                                PdfRenderer="PdfJs" />
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </form>
 </body>

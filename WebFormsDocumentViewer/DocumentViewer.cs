@@ -110,6 +110,8 @@ namespace WebFormsDocumentViewer
                 if (PdfRenderer == PdfRenderers.PdfJs && !extension.Equals(SupportedExtensions.txt) &&
                     !extension.ToString().StartsWith("xls"))
                     FilePath = string.Format("{0}/Scripts/pdf.js/web/viewer.html?file=../../../{1}", applicationRootUrl, FilePath);
+                else
+                    FilePath = string.Format("{0}/{1}", applicationRootUrl, filePath);
 
                 StringBuilder sb = new StringBuilder();
                 sb.Append("<iframe src=" + FilePath?.ToString() + " ");

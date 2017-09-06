@@ -59,7 +59,7 @@ namespace WebFormsDocumentViewer.Tests
                 Width = Unit.Pixel(500),
                 Height = Unit.Pixel(500)
             };
-            Assert.That(documentViewer.BuildControl("", "").ToString(), Is.EqualTo("<iframe src=sample.pdf width=500px height=500px></iframe>"));
+            Assert.That(documentViewer.BuildControl("", "").ToString(), Is.EqualTo("<iframe src=/sample.pdf width=500px height=500px></iframe>"));
         }
 
         [Test]

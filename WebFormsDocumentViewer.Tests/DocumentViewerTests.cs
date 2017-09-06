@@ -35,7 +35,7 @@ namespace WebFormsDocumentViewer.Tests
             {
                 FilePath = ""
             };
-            Assert.That(documentViewer.BuildControl("").ToString(), Is.EqualTo(new StringBuilder("Cannot display document viewer").ToString()));
+            Assert.That(documentViewer.BuildControl("", "").ToString(), Is.EqualTo(new StringBuilder("Cannot display document viewer").ToString()));
         }
 
         [Test]
@@ -46,7 +46,7 @@ namespace WebFormsDocumentViewer.Tests
                 PdfRenderer = PdfRenderers.PdfJs,
                 FilePath = "sample.pdf"
             };
-            documentViewer.BuildControl("");
+            documentViewer.BuildControl("", "");
             Assert.That(documentViewer.FilePath.StartsWith("/Scripts/pdf.js/web/viewer.html?file=../../../"));
         }
 
@@ -59,7 +59,7 @@ namespace WebFormsDocumentViewer.Tests
                 Width = Unit.Pixel(500),
                 Height = Unit.Pixel(500)
             };
-            Assert.That(documentViewer.BuildControl("").ToString(), Is.EqualTo("<iframe src=sample.pdf width=500px height=500px></iframe>"));
+            Assert.That(documentViewer.BuildControl("", "").ToString(), Is.EqualTo("<iframe src=sample.pdf width=500px height=500px></iframe>"));
         }
 
         [Test]
@@ -70,7 +70,7 @@ namespace WebFormsDocumentViewer.Tests
                 FilePath = "sample.xlsx",
                 TempDirectoryPath = ""
             };
-            documentViewer.BuildControl("");
+            documentViewer.BuildControl("", "");
             Assert.That(documentViewer.TempDirectoryPath, Is.EqualTo("Temp"));
         }
 
@@ -82,7 +82,7 @@ namespace WebFormsDocumentViewer.Tests
             {
                 FilePath = "sample.pptx"
             };
-            Assert.That(documentViewer.BuildControl("").ToString(), Is.EqualTo(new StringBuilder("Cannot display document viewer").ToString()));
+            Assert.That(documentViewer.BuildControl("", "").ToString(), Is.EqualTo(new StringBuilder("Cannot display document viewer").ToString()));
         }
     }
 }

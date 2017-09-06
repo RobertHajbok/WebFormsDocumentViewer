@@ -87,11 +87,11 @@ namespace WebFormsDocumentViewer
         public override void RenderControl(HtmlTextWriter writer)
         {
             writer.RenderBeginTag(HtmlTextWriterTag.Div);
-            writer.Write(BuildControl(HttpContext.Current.Server.MapPath("~")).ToString());
+            writer.Write(BuildControl(HttpContext.Current.Server.MapPath("~"), HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority) + ResolveUrl("~/")).ToString());
             writer.RenderEndTag();
         }
 
-        public StringBuilder BuildControl(string projectRootPath)
+        public StringBuilder BuildControl(string projectRootPath, string applicationRootUrl)
         {
             try
             {
@@ -109,7 +109,7 @@ namespace WebFormsDocumentViewer
 
                 if (PdfRenderer == PdfRenderers.PdfJs && !extension.Equals(SupportedExtensions.txt) &&
                     !extension.ToString().StartsWith("xls"))
-                    FilePath = "/Scripts/pdf.js/web/viewer.html?file=../../../" + FilePath;
+                    FilePath = string.Format("{0}/Scripts/pdf.js/web/viewer.html?file=../../../{1}", applicationRootUrl, FilePath);
 
                 StringBuilder sb = new StringBuilder();
                 sb.Append("<iframe src=" + FilePath?.ToString() + " ");

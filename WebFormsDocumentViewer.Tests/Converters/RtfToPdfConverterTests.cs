@@ -12,7 +12,7 @@ namespace WebFormsDocumentViewer.Converters.Tests
         public void Convert_When_RtfFileNotFound_Then_NullIsRetuned()
         {
             RtfToPdfConverter converter = new RtfToPdfConverter();
-            string newFilePath = converter.Convert("test.rtf", "Temp", "");
+            string newFilePath = converter.Convert("test.rtf", "Temp");
             Assert.That(newFilePath, Is.Null);
         }
 
@@ -22,7 +22,7 @@ namespace WebFormsDocumentViewer.Converters.Tests
         {
             RtfToPdfConverter converter = new RtfToPdfConverter();
             string root = Path.GetDirectoryName(Path.GetDirectoryName(TestContext.CurrentContext.TestDirectory));
-            string newFilePath = converter.Convert("Samples\\sample.rtf", "Temp", root);
+            string newFilePath = converter.Convert(Path.Combine(root, "Samples\\sample.rtf"), Path.Combine(root, "Temp"));
             Assert.That(newFilePath, Is.Not.Null);
             Assert.That(Path.GetExtension(newFilePath), Is.EqualTo(".pdf"));
         }
@@ -36,7 +36,7 @@ namespace WebFormsDocumentViewer.Converters.Tests
             string root = Path.GetDirectoryName(Path.GetDirectoryName(TestContext.CurrentContext.TestDirectory));
 
             Assert.That(Directory.Exists(Path.Combine(root, "Temp" + currentDateSpan)), Is.False);
-            converter.Convert("Samples\\sample.rtf", "Temp" + currentDateSpan, root);
+            converter.Convert(Path.Combine(root, "Samples\\sample.rtf"), Path.Combine(root, "Temp" + currentDateSpan));
             Assert.That(Directory.Exists(Path.Combine(root, "Temp" + currentDateSpan)), Is.True);
             Directory.Delete(Path.Combine(root, "Temp" + currentDateSpan), true);
         }

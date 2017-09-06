@@ -20,25 +20,23 @@ namespace WebFormsDocumentViewer.Converters
         /// </summary>
         /// <param name="filePath">Path to the PowerPoint file</param>
         /// <param name="destinationPath">Directory where the PDF file will be saved</param>
-        /// <param name="projectRootPath">Root directory of the project or server</param>
-        /// <returns>Path of the converted file</returns>
-        public string Convert(string filePath, string destinationPath, string projectRootPath)
+        /// <returns>Name of the converted file</returns>
+        public string Convert(string filePath, string destinationPath)
         {           
             Application appPowerPoint = new Application();
             Presentation powerPointDocument = null;
             try
             {
-                powerPointDocument = appPowerPoint.Presentations.Open(Path.Combine(projectRootPath, filePath), 
-                    MsoTriState.msoFalse, MsoTriState.msoFalse, MsoTriState.msoFalse);
+                powerPointDocument = appPowerPoint.Presentations.Open(filePath, MsoTriState.msoFalse, 
+                    MsoTriState.msoFalse, MsoTriState.msoFalse);
                 powerPointDocument.Final = false;
                 string fileName = Path.GetFileNameWithoutExtension(filePath) + DateTime.Now.Ticks + ".pdf";
 
-                if (!Directory.Exists(Path.Combine(projectRootPath, destinationPath)))
-                    Directory.CreateDirectory(Path.Combine(projectRootPath, destinationPath));
-                string newFilePath = Path.Combine(destinationPath, fileName);
+                if (!Directory.Exists(destinationPath))
+                    Directory.CreateDirectory(destinationPath);
+                powerPointDocument.ExportAsFixedFormat(Path.Combine(destinationPath, fileName), PpFixedFormatType.ppFixedFormatTypePDF);
 
-                powerPointDocument.ExportAsFixedFormat(Path.Combine(projectRootPath, newFilePath), PpFixedFormatType.ppFixedFormatTypePDF);
-                return newFilePath;
+                return fileName;
             }
             catch
             {

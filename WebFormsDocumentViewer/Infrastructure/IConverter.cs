@@ -5,6 +5,6 @@
     /// </summary>
     public interface IConverter
     {
-        string Convert(string filePath, string destinationPath, string projectRootPath);
+        string Convert(string filePath, string destinationPath);
     }
 }

@@ -12,7 +12,7 @@ namespace WebFormsDocumentViewer.Converters.Tests
         public void Convert_When_WordFileNotFound_Then_NullIsRetuned()
         {
             WordToPdfConverter converter = new WordToPdfConverter();
-            string newFilePath = converter.Convert("test.docx", "Temp", "");
+            string newFilePath = converter.Convert("test.docx", "Temp");
             Assert.That(newFilePath, Is.Null);
         }
 
@@ -22,7 +22,7 @@ namespace WebFormsDocumentViewer.Converters.Tests
         {
             WordToPdfConverter converter = new WordToPdfConverter();
             string root = Path.GetDirectoryName(Path.GetDirectoryName(TestContext.CurrentContext.TestDirectory));
-            string newFilePath = converter.Convert("Samples\\sample.docx", "Temp", root);
+            string newFilePath = converter.Convert(Path.Combine(root, "Samples\\sample.docx"), Path.Combine(root, "Temp"));
             Assert.That(newFilePath, Is.Not.Null);
             Assert.That(Path.GetExtension(newFilePath), Is.EqualTo(".pdf"));
         }
@@ -36,7 +36,7 @@ namespace WebFormsDocumentViewer.Converters.Tests
             string root = Path.GetDirectoryName(Path.GetDirectoryName(TestContext.CurrentContext.TestDirectory));
 
             Assert.That(Directory.Exists(Path.Combine(root, "Temp" + currentDateSpan)), Is.False);
-            converter.Convert("Samples\\sample.docx", "Temp" + currentDateSpan, root);
+            converter.Convert(Path.Combine(root, "Samples\\sample.docx"), Path.Combine(root, "Temp" + currentDateSpan));
             Assert.That(Directory.Exists(Path.Combine(root, "Temp" + currentDateSpan)), Is.True);
             Directory.Delete(Path.Combine(root, "Temp" + currentDateSpan), true);
         }

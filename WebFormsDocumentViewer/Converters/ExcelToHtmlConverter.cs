@@ -18,22 +18,20 @@ namespace WebFormsDocumentViewer.Converters
         /// </summary>
         /// <param name="filePath">Path to the Excel file</param>
         /// <param name="destinationPath">Directory where the HTML file will be saved</param>
-        /// <param name="projectRootPath">Root directory of the project or server</param>
-        /// <returns>Path of the converted file</returns>
-        public string Convert(string filePath, string destinationPath, string projectRootPath)
+        /// <returns>Name of the converted file</returns>
+        public string Convert(string filePath, string destinationPath)
         {
             Application appExcel = new Application();
             try
             {
-                Workbook workbook = appExcel.Workbooks.Open(Path.Combine(projectRootPath, filePath));
+                Workbook workbook = appExcel.Workbooks.Open(filePath);
                 string fileName = Path.GetFileNameWithoutExtension(filePath) + DateTime.Now.Ticks + ".html";
 
-                if (!Directory.Exists(Path.Combine(projectRootPath, destinationPath)))
-                    Directory.CreateDirectory(Path.Combine(projectRootPath, destinationPath));
-                string newFilePath = Path.Combine(destinationPath, fileName);
+                if (!Directory.Exists(destinationPath))
+                    Directory.CreateDirectory(destinationPath);
+                workbook.SaveAs(Path.Combine(destinationPath, fileName), XlFileFormat.xlHtml);
 
-                workbook.SaveAs(Path.Combine(projectRootPath, newFilePath), XlFileFormat.xlHtml);
-                return newFilePath;
+                return fileName;
             }
             catch
             {

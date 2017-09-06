@@ -19,22 +19,20 @@ namespace WebFormsDocumentViewer.Converters
         /// </summary>
         /// <param name="filePath">Path to the RichTextFormat file</param>
         /// <param name="destinationPath">Directory where the PDF file will be saved</param>
-        /// <param name="projectRootPath">Root directory of the project or server</param>
-        /// <returns>Path of the converted file</returns>
-        public string Convert(string filePath, string destinationPath, string projectRootPath)
+        /// <returns>Name of the converted file</returns>
+        public string Convert(string filePath, string destinationPath)
         {
             Application appWord = new Application();
             try
             {
-                Document rtfDocument = appWord.Documents.Open(Path.Combine(projectRootPath, filePath));
+                Document rtfDocument = appWord.Documents.Open(filePath);
                 string fileName = Path.GetFileNameWithoutExtension(filePath) + DateTime.Now.Ticks + ".pdf";
 
-                if (!Directory.Exists(Path.Combine(projectRootPath, destinationPath)))
-                    Directory.CreateDirectory(Path.Combine(projectRootPath, destinationPath));
-                string newFilePath = Path.Combine(destinationPath, fileName);
+                if (!Directory.Exists(destinationPath))
+                    Directory.CreateDirectory(destinationPath);
+                rtfDocument.ExportAsFixedFormat(Path.Combine(destinationPath, fileName), WdExportFormat.wdExportFormatPDF);
 
-                rtfDocument.ExportAsFixedFormat(Path.Combine(projectRootPath, newFilePath), WdExportFormat.wdExportFormatPDF);
-                return newFilePath;
+                return fileName;
             }
             catch
             {

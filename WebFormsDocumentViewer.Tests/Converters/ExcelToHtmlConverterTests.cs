@@ -12,7 +12,7 @@ namespace WebFormsDocumentViewer.Converters.Tests
         public void Convert_When_ExcelFileNotFound_Then_NullIsRetuned()
         {
             ExcelToHtmlConverter converter = new ExcelToHtmlConverter();
-            string newFilePath = converter.Convert("test.xlsx", "Temp", "");
+            string newFilePath = converter.Convert("test.xlsx", "Temp");
             Assert.That(newFilePath, Is.Null);
         }
 
@@ -22,7 +22,7 @@ namespace WebFormsDocumentViewer.Converters.Tests
         {
             ExcelToHtmlConverter converter = new ExcelToHtmlConverter();
             string root = Path.GetDirectoryName(Path.GetDirectoryName(TestContext.CurrentContext.TestDirectory));
-            string newFilePath = converter.Convert("Samples\\sample.xlsx", "Temp", root);
+            string newFilePath = converter.Convert(Path.Combine(root, "Samples\\sample.xlsx"), Path.Combine(root, "Temp"));
             Assert.That(newFilePath, Is.Not.Null);
             Assert.That(Path.GetExtension(newFilePath), Is.EqualTo(".html"));
         }
@@ -36,9 +36,9 @@ namespace WebFormsDocumentViewer.Converters.Tests
             string root = Path.GetDirectoryName(Path.GetDirectoryName(TestContext.CurrentContext.TestDirectory));
 
             Assert.That(Directory.Exists(Path.Combine(root, "Temp" + currentDateSpan)), Is.False);
-            converter.Convert("Samples\\sample.xlsx", "Temp" + currentDateSpan, root);
+            converter.Convert(Path.Combine(root, "Samples\\sample.xlsx"), Path.Combine(root, "Temp" + currentDateSpan));
             Assert.That(Directory.Exists(Path.Combine(root, "Temp" + currentDateSpan)), Is.True);
             Directory.Delete(Path.Combine(root, "Temp" + currentDateSpan), true);
-        }
+        }        
     }
 }

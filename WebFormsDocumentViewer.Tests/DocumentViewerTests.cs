@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
-using System;
+using System.IO;
 using System.Text;
+using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace WebFormsDocumentViewer.Tests
@@ -9,21 +10,11 @@ namespace WebFormsDocumentViewer.Tests
     public class DocumentViewerTests
     {
         [Test]
-        public void FilePath_When_PathStartsWithTilde_Then_TidleIsRemoved()
+        public void TempDirectoryPath_When_PathIsEmpty_Then_TempFolderIsSet()
         {
             DocumentViewer documentViewer = new DocumentViewer
             {
-                FilePath = "~/Samples/sample.pdf"
-            };
-            Assert.That(documentViewer.FilePath, Is.EqualTo("Samples/sample.pdf"));
-        }
-
-        [Test]
-        public void TempDirectoryPath_When_PathStartsWithTilde_Then_TidleIsRemoved()
-        {
-            DocumentViewer documentViewer = new DocumentViewer
-            {
-                TempDirectoryPath = "~/Temp"
+                TempDirectoryPath = ""
             };
             Assert.That(documentViewer.TempDirectoryPath, Is.EqualTo("Temp"));
         }
@@ -35,7 +26,7 @@ namespace WebFormsDocumentViewer.Tests
             {
                 FilePath = ""
             };
-            Assert.That(documentViewer.BuildControl("", "").ToString(), Is.EqualTo(new StringBuilder("Cannot display document viewer").ToString()));
+            Assert.That(documentViewer.BuildControl("", "", "", "", "").ToString(), Is.EqualTo(new StringBuilder("Cannot display document viewer").ToString()));
         }
 
         [Test]
@@ -43,11 +34,9 @@ namespace WebFormsDocumentViewer.Tests
         {
             DocumentViewer documentViewer = new DocumentViewer
             {
-                PdfRenderer = PdfRenderers.PdfJs,
-                FilePath = "sample.pdf"
+                PdfRenderer = PdfRenderers.PdfJs
             };
-            documentViewer.BuildControl("", "");
-            Assert.That(documentViewer.FilePath.StartsWith("/Scripts/pdf.js/web/viewer.html?file=../../../"));
+            Assert.That(documentViewer.BuildControl("", "sample.pdf", "", "", "").ToString().Contains("/Scripts/pdf.js/web/viewer.html?file=../../../"));
         }
 
         [Test]
@@ -55,23 +44,10 @@ namespace WebFormsDocumentViewer.Tests
         {
             DocumentViewer documentViewer = new DocumentViewer
             {
-                FilePath = "sample.pdf",
                 Width = Unit.Pixel(500),
                 Height = Unit.Pixel(500)
             };
-            Assert.That(documentViewer.BuildControl("", "").ToString(), Is.EqualTo("<iframe src=/sample.pdf width=500px height=500px></iframe>"));
-        }
-
-        [Test]
-        public void BuildControl_When_TempDirectoryIsEmpty_Then_ItIsSetToTemp()
-        {
-            DocumentViewer documentViewer = new DocumentViewer
-            {
-                FilePath = "sample.xlsx",
-                TempDirectoryPath = ""
-            };
-            documentViewer.BuildControl("", "");
-            Assert.That(documentViewer.TempDirectoryPath, Is.EqualTo("Temp"));
+            Assert.That(documentViewer.BuildControl("", "sample.pdf", "", "", "").ToString(), Is.EqualTo("<iframe src=/sample.pdf width=500px height=500px></iframe>"));
         }
 
         [Test]
@@ -80,9 +56,19 @@ namespace WebFormsDocumentViewer.Tests
         {
             DocumentViewer documentViewer = new DocumentViewer
             {
-                FilePath = "sample.pptx"
+                FilePath = "sample.pptx",
+                TempDirectoryPath = "TmpFolder"
             };
-            Assert.That(documentViewer.BuildControl("", "").ToString(), Is.EqualTo(new StringBuilder("Cannot display document viewer").ToString()));
+            Assert.That(documentViewer.BuildControl("", "sample.pptx", "", "", "").ToString(), Is.EqualTo(new StringBuilder("Cannot display document viewer").ToString()));
+        }
+
+        [Test]
+        public void RenderControl_When_ErrorOccursOnRetrievingServerParameters_Then_ControlIsNotRendered()
+        {
+            DocumentViewer documentViewer = new DocumentViewer();
+            HtmlTextWriter textWriter = new HtmlTextWriter(new StringWriter());
+            documentViewer.RenderControl(textWriter);
+            Assert.That(textWriter.InnerWriter.ToString(), Is.EqualTo("<div>\r\n\tCannot display document viewer\r\n</div>"));
         }
     }
 }

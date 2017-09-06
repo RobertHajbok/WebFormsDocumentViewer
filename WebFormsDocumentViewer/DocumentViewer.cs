@@ -31,16 +31,7 @@ namespace WebFormsDocumentViewer
             }
             set
             {
-                if (string.IsNullOrEmpty(value))
-                {
-                    filePath = string.Empty;
-                }
-                else
-                {
-                    int tilde = -1;
-                    tilde = value.IndexOf('~');
-                    filePath = tilde != -1 ? value.Substring((tilde + 2)).Trim() : value;
-                }
+                filePath = string.IsNullOrEmpty(value) ? string.Empty : value;
             }
         }
 
@@ -52,20 +43,11 @@ namespace WebFormsDocumentViewer
         {
             get
             {
-                return tempDirectoryPath;
+                return string.IsNullOrEmpty(tempDirectoryPath) ? "Temp" : tempDirectoryPath;
             }
             set
             {
-                if (string.IsNullOrEmpty(value))
-                {
-                    tempDirectoryPath = string.Empty;
-                }
-                else
-                {
-                    int tilde = -1;
-                    tilde = value.IndexOf('~');
-                    tempDirectoryPath = tilde != -1 ? value.Substring((tilde + 2)).Trim() : value;
-                }
+                tempDirectoryPath = string.IsNullOrEmpty(value) ? string.Empty : value;
             }
         }
 
@@ -87,34 +69,44 @@ namespace WebFormsDocumentViewer
         public override void RenderControl(HtmlTextWriter writer)
         {
             writer.RenderBeginTag(HtmlTextWriterTag.Div);
-            writer.Write(BuildControl(HttpContext.Current.Server.MapPath("~"), HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority) + ResolveUrl("~/")).ToString());
+            try
+            {
+                writer.Write(BuildControl(HttpContext.Current.Server.MapPath(FilePath), ResolveUrl(FilePath), HttpContext.Current.Server.MapPath(TempDirectoryPath),
+                    ResolveUrl(TempDirectoryPath), HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority) + ResolveUrl("~/")).ToString());
+            }
+            catch
+            {
+                writer.Write("Cannot display document viewer");
+            }
             writer.RenderEndTag();
         }
 
-        public StringBuilder BuildControl(string projectRootPath, string applicationRootUrl)
+        public StringBuilder BuildControl(string filePhysicalPath, string fileVirtualPath, string tempDirectoryPhysicalPath,
+            string tempDirectoryVirtualPath, string applicationRootUrl)
         {
             try
             {
-                string fileExtension = Path.GetExtension(FilePath);
+                string fileExtension = Path.GetExtension(fileVirtualPath);
+                string frameSource = fileVirtualPath;
                 SupportedExtensions extension = (SupportedExtensions)Enum.Parse(typeof(SupportedExtensions), fileExtension.Replace(".", ""));
                 IConverter converter = ConverterFactory.GetConverter(extension);
                 if (converter != null)
                 {
-                    if (string.IsNullOrEmpty(TempDirectoryPath))
-                        TempDirectoryPath = "Temp";
-                    FilePath = converter.Convert(FilePath, TempDirectoryPath, projectRootPath);
-                    if (string.IsNullOrEmpty(FilePath))
+                    string tempFileName = converter.Convert(filePhysicalPath, tempDirectoryPhysicalPath);
+                    if (string.IsNullOrEmpty(tempFileName))
                         throw new Exception("An error ocurred while trying to convert the file");
+
+                    frameSource = string.Format("{0}/{1}", tempDirectoryVirtualPath, tempFileName);
                 }
 
                 if (PdfRenderer == PdfRenderers.PdfJs && !extension.Equals(SupportedExtensions.txt) &&
                     !extension.ToString().StartsWith("xls"))
-                    FilePath = string.Format("{0}/Scripts/pdf.js/web/viewer.html?file=../../../{1}", applicationRootUrl, FilePath);
+                    frameSource = string.Format("{0}/Scripts/pdf.js/web/viewer.html?file=../../../{1}", applicationRootUrl, frameSource);
                 else
-                    FilePath = string.Format("{0}/{1}", applicationRootUrl, filePath);
+                    frameSource = string.Format("{0}/{1}", applicationRootUrl, frameSource);
 
                 StringBuilder sb = new StringBuilder();
-                sb.Append("<iframe src=" + FilePath?.ToString() + " ");
+                sb.Append("<iframe src=" + frameSource + " ");
                 sb.Append("width=" + Width.ToString() + " ");
                 sb.Append("height=" + Height.ToString() + ">");
                 sb.Append("</iframe>");
@@ -125,5 +117,6 @@ namespace WebFormsDocumentViewer
                 return new StringBuilder("Cannot display document viewer");
             }
         }
+
     }
 }

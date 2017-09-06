@@ -22,7 +22,7 @@ namespace WebFormsDocumentViewer
         [Category("Source File")]
         [Browsable(true)]
         [Description("Set path to source file.")]
-        [Editor(typeof(UrlEditor), typeof(UITypeEditor))]
+        [UrlProperty, Editor(typeof(UrlEditor), typeof(UITypeEditor))]
         public string FilePath
         {
             get
@@ -47,7 +47,7 @@ namespace WebFormsDocumentViewer
         [Category("Temporary Directory Path")]
         [Browsable(true)]
         [Description("Set path to the directory where the files will be converted.")]
-        [Editor(typeof(UrlEditor), typeof(UITypeEditor))]
+        [UrlProperty, Editor(typeof(UrlEditor), typeof(UITypeEditor))]
         public string TempDirectoryPath
         {
             get

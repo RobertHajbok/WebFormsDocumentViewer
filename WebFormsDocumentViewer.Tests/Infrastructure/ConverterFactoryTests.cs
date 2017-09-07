@@ -18,6 +18,8 @@ namespace WebFormsDocumentViewer.Infrastructure.Tests
             Assert.That(ConverterFactory.GetConverter(SupportedExtensions.xlsx), Is.TypeOf<ExcelToHtmlConverter>());
             Assert.That(ConverterFactory.GetConverter(SupportedExtensions.rtf), Is.TypeOf<RtfToPdfConverter>());
             Assert.That(ConverterFactory.GetConverter(SupportedExtensions.txt), Is.Null);
+            Assert.That(ConverterFactory.GetConverter(SupportedExtensions.msg), Is.TypeOf<MailToHtmlConverter>());
+            Assert.That(ConverterFactory.GetConverter(SupportedExtensions.eml), Is.TypeOf<MailToHtmlConverter>());
         }
     }
 }

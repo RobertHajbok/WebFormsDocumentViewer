@@ -99,8 +99,7 @@ namespace WebFormsDocumentViewer
                     frameSource = string.Format("{0}/{1}", tempDirectoryVirtualPath, tempFileName);
                 }
 
-                if (PdfRenderer == PdfRenderers.PdfJs && !extension.Equals(SupportedExtensions.txt) &&
-                    !extension.ToString().StartsWith("xls"))
+                if (PdfRenderer == PdfRenderers.PdfJs && Enum.IsDefined(typeof(PdfJsSupportedExtensions), extension.ToString()))
                     frameSource = string.Format("{0}/Scripts/pdf.js/web/viewer.html?file=../../../{1}", applicationRootUrl, frameSource);
                 else
                     frameSource = string.Format("{0}/{1}", applicationRootUrl, frameSource);

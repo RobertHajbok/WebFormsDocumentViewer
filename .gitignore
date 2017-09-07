@@ -261,3 +261,4 @@ __pycache__/
 *.pyc
 /WebFormsDocumentViewer.UI/TempFiles
 /WebFormsDocumentViewer.Tests/Temp
+/WebFormsDocumentViewer.UI/Temp

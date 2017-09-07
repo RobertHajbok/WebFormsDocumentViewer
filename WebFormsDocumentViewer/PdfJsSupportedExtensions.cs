@@ -1,17 +1,12 @@
 ﻿namespace WebFormsDocumentViewer
 {
-    public enum SupportedExtensions
+    public enum PdfJsSupportedExtensions
     {
         pdf,
         doc,
         docx,
         ppt,
         pptx,
-        xls,
-        xlsx,
-        rtf,
-        txt,
-        eml,
-        msg
+        rtf
     }
 }

@@ -24,6 +24,10 @@ namespace WebFormsDocumentViewer.Infrastructure
                 case SupportedExtensions.rtf:
                     converter = new RtfToPdfConverter();
                     break;
+                case SupportedExtensions.eml:
+                case SupportedExtensions.msg:
+                    converter = new MailToHtmlConverter();
+                    break;
             }
             return converter;
         }

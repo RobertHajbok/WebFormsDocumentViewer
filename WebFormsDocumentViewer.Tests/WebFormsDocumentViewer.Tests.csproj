@@ -51,6 +51,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Converters\ExcelToHtmlConverterTests.cs" />
+    <Compile Include="Converters\MailToHtmlConverterTests.cs" />
     <Compile Include="Converters\PowerPointToPdfConverterTests.cs" />
     <Compile Include="Converters\RtfToPdfConverterTests.cs" />
     <Compile Include="Converters\WordToPdfConverterTests.cs" />
@@ -65,6 +66,8 @@
     <Content Include="Samples\sample.xlsx" />
     <Content Include="Samples\sample-protected.pptx" />
     <Content Include="Samples\sample.rtf" />
+    <Content Include="Samples\sample.msg" />
+    <Content Include="Samples\sample.eml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WebFormsDocumentViewer\WebFormsDocumentViewer.csproj">

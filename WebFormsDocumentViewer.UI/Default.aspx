@@ -26,7 +26,7 @@
                         <div class="card-block">
                             <h4 class="card-title">PDF Viewer</h4>
                             <p class="card-text">
-                                This renders a PDF document in an iframe and uses 
+                                This renders a PDF document (.pdf) in an iframe and uses 
                                 <a href="https://mozilla.github.io/pdf.js/" target="_blank">PDF.js</a> as the PDF renderer 
                                 instead of <a href="https://acrobat.adobe.com/uk/en/" target="_blank">Adobe Reader</a>.
                             </p>
@@ -39,7 +39,7 @@
                         <div class="card-block">
                             <h4 class="card-title">Word Viewer</h4>
                             <p class="card-text">
-                                This converts the Word document to PDF and renders it in an iframe. 
+                                This converts the Word document (.doc or .docx) to PDF and renders it in an iframe. 
                                 You should have Microsoft Office installed for this.
                             </p>
                             <cc:DocumentViewer runat="server" Width="100%" Height="500" FilePath="~/Samples/sample.docx" TempDirectoryPath="~/TempFiles" />
@@ -54,7 +54,7 @@
                         <div class="card-block">
                             <h4 class="card-title">PowerPoint Viewer</h4>
                             <p class="card-text">
-                                This converts the PowerPoint document to PDF and renders it in an iframe. 
+                                This converts the PowerPoint document (.ppt or .pptx) to PDF and renders it in an iframe. 
                                 You should have Microsoft Office installed for this.
                             </p>
                             <cc:DocumentViewer runat="server" Width="100%" Height="500" FilePath="~/Samples/sample.pptx" TempDirectoryPath="~/TempFiles" />
@@ -66,7 +66,7 @@
                         <div class="card-block">
                             <h4 class="card-title">Excel Viewer</h4>
                             <p class="card-text">
-                                This converts the Excel document to HTML and renders it in an iframe. 
+                                This converts the Excel document (.xls or .xlsx) to HTML and renders it in an iframe. 
                                 You should have Microsoft Office installed for this.
                             </p>
                             <cc:DocumentViewer runat="server" Width="100%" Height="500" FilePath="~/Samples/sample.xlsx" TempDirectoryPath="~/TempFiles" />
@@ -81,7 +81,7 @@
                         <div class="card-block">
                             <h4 class="card-title">RichTextFormat Viewer</h4>
                             <p class="card-text">
-                                This converts the RichTextFormat document to PDF and renders it in an iframe using 
+                                This converts the RichTextFormat document (.rtf) to PDF and renders it in an iframe using 
                                 <a href="https://mozilla.github.io/pdf.js/" target="_blank">PDF.js</a>. 
                                 You should have Microsoft Office installed for this.
                             </p>
@@ -95,7 +95,7 @@
                         <div class="card-block">
                             <h4 class="card-title">Text Viewer</h4>
                             <p class="card-text">
-                                This renders a Text document in an iframe. No conversion is needed as browsers support
+                                This renders a Text document (.txt) in an iframe. No conversion is needed as browsers support
                                 this by default.
                             </p>
                             <cc:DocumentViewer runat="server" Width="100%" Height="500" FilePath="~/Samples/sample.txt" />
@@ -103,6 +103,22 @@
                     </div>
                 </div>
             </div>
+            <br />
+            <div class="row">
+                <div class="col col-md-6">
+                    <div class="card text-center">
+                        <div class="card-block">
+                            <h4 class="card-title">Mail Viewer</h4>
+                            <p class="card-text">
+                                This converts the Mail file (.msg or .eml) to HTML and renders it in an iframe.
+                                You should have Microsoft Office installed for this.
+                            </p>
+                            <cc:DocumentViewer runat="server" Width="100%" Height="500" FilePath="~/Samples/sample.msg" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br />
         </div>
     </form>
 </body>

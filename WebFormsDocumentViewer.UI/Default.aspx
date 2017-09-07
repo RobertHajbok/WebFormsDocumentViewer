@@ -15,7 +15,7 @@
         <div class="jumbotron text-center">
             <h2>Document Viewer custom control for Web Forms</h2>
             <p>
-                This currently supports PDF and Word documents. For more details check the
+                This currently supports PDF, Word, PowerPoint, Excel, RichTextFormat, Text and Mail files. For more details check the
                 <a href="https://github.com/HajbokRobert/WebFormsDocumentViewer" target="_blank">Github repository</a>.
             </p>
         </div>

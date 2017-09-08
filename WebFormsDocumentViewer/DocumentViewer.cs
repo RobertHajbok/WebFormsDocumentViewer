@@ -43,7 +43,7 @@ namespace WebFormsDocumentViewer
         {
             get
             {
-                return string.IsNullOrEmpty(tempDirectoryPath) ? "Temp" : tempDirectoryPath;
+                return string.IsNullOrEmpty(tempDirectoryPath) ? "~/Temp" : tempDirectoryPath;
             }
             set
             {
@@ -72,7 +72,7 @@ namespace WebFormsDocumentViewer
             try
             {
                 writer.Write(BuildControl(HttpContext.Current.Server.MapPath(FilePath), ResolveUrl(FilePath), HttpContext.Current.Server.MapPath(TempDirectoryPath),
-                    ResolveUrl(TempDirectoryPath), HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority) + ResolveUrl("~/")).ToString());
+                    ResolveUrl(TempDirectoryPath), HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority), ResolveUrl("~/")).ToString());
             }
             catch
             {
@@ -82,7 +82,7 @@ namespace WebFormsDocumentViewer
         }
 
         public StringBuilder BuildControl(string filePhysicalPath, string fileVirtualPath, string tempDirectoryPhysicalPath,
-            string tempDirectoryVirtualPath, string applicationRootUrl)
+            string tempDirectoryVirtualPath, string appDomain, string appRootUrl)
         {
             try
             {
@@ -100,9 +100,9 @@ namespace WebFormsDocumentViewer
                 }
 
                 if (PdfRenderer == PdfRenderers.PdfJs && Enum.IsDefined(typeof(PdfJsSupportedExtensions), extension.ToString()))
-                    frameSource = string.Format("{0}/Scripts/pdf.js/web/viewer.html?file=../../../{1}", applicationRootUrl, frameSource);
+                    frameSource = string.Format("{0}{1}Scripts/pdf.js/web/viewer.html?file={0}{2}", appDomain, appRootUrl, frameSource);
                 else
-                    frameSource = string.Format("{0}/{1}", applicationRootUrl, frameSource);
+                    frameSource = string.Format("{0}/{1}", appDomain, frameSource);
 
                 StringBuilder sb = new StringBuilder();
                 sb.Append("<iframe src=" + frameSource + " ");

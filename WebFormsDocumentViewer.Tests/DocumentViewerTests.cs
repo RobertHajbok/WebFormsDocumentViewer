@@ -16,7 +16,7 @@ namespace WebFormsDocumentViewer.Tests
             {
                 TempDirectoryPath = ""
             };
-            Assert.That(documentViewer.TempDirectoryPath, Is.EqualTo("Temp"));
+            Assert.That(documentViewer.TempDirectoryPath, Is.EqualTo("~/Temp"));
         }
 
         [Test]
@@ -26,7 +26,7 @@ namespace WebFormsDocumentViewer.Tests
             {
                 FilePath = ""
             };
-            Assert.That(documentViewer.BuildControl("", "", "", "", "").ToString(), Is.EqualTo(new StringBuilder("Cannot display document viewer").ToString()));
+            Assert.That(documentViewer.BuildControl("", "", "", "", "", "").ToString(), Is.EqualTo(new StringBuilder("Cannot display document viewer").ToString()));
         }
 
         [Test]
@@ -36,7 +36,7 @@ namespace WebFormsDocumentViewer.Tests
             {
                 PdfRenderer = PdfRenderers.PdfJs
             };
-            Assert.That(documentViewer.BuildControl("", "sample.pdf", "", "", "").ToString().Contains("/Scripts/pdf.js/web/viewer.html?file=../../../"));
+            Assert.That(documentViewer.BuildControl("", "sample.pdf", "", "", "", "").ToString().Contains("Scripts/pdf.js/web/viewer.html?file="));
         }
 
         [Test]
@@ -47,7 +47,7 @@ namespace WebFormsDocumentViewer.Tests
                 Width = Unit.Pixel(500),
                 Height = Unit.Pixel(500)
             };
-            Assert.That(documentViewer.BuildControl("", "sample.pdf", "", "", "").ToString(), Is.EqualTo("<iframe src=/sample.pdf width=500px height=500px></iframe>"));
+            Assert.That(documentViewer.BuildControl("", "sample.pdf", "", "", "", "").ToString(), Is.EqualTo("<iframe src=/sample.pdf width=500px height=500px></iframe>"));
         }
 
         [Test]
@@ -59,7 +59,7 @@ namespace WebFormsDocumentViewer.Tests
                 FilePath = "sample.pptx",
                 TempDirectoryPath = "TmpFolder"
             };
-            Assert.That(documentViewer.BuildControl("", "sample.pptx", "", "", "").ToString(), Is.EqualTo(new StringBuilder("Cannot display document viewer").ToString()));
+            Assert.That(documentViewer.BuildControl("", "sample.pptx", "", "", "", "").ToString(), Is.EqualTo(new StringBuilder("Cannot display document viewer").ToString()));
         }
 
         [Test]

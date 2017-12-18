@@ -68,7 +68,6 @@ namespace WebFormsDocumentViewer
 
         public override void RenderControl(HtmlTextWriter writer)
         {
-            writer.RenderBeginTag(HtmlTextWriterTag.Div);
             try
             {
                 writer.Write(BuildControl(HttpContext.Current.Server.MapPath(FilePath), ResolveUrl(FilePath), HttpContext.Current.Server.MapPath(TempDirectoryPath),
@@ -76,9 +75,10 @@ namespace WebFormsDocumentViewer
             }
             catch
             {
+                writer.RenderBeginTag(HtmlTextWriterTag.Div);
                 writer.Write("Cannot display document viewer");
+                writer.RenderEndTag();
             }
-            writer.RenderEndTag();
         }
 
         public StringBuilder BuildControl(string filePhysicalPath, string fileVirtualPath, string tempDirectoryPhysicalPath,
@@ -103,9 +103,12 @@ namespace WebFormsDocumentViewer
                     frameSource = string.Format("{0}{1}Scripts/pdf.js/web/viewer.html?file={0}{2}", appDomain, appRootUrl, frameSource);
                 else
                     frameSource = string.Format("{0}/{1}", appDomain, frameSource);
-
+                
                 StringBuilder sb = new StringBuilder();
-                sb.Append("<iframe src=" + frameSource + " ");
+                sb.Append("<iframe ");
+                if (!string.IsNullOrEmpty(ID))
+                    sb.Append("id=" + ClientID + " ");
+                sb.Append("src=" + frameSource + " ");
                 sb.Append("width=" + Width.ToString() + " ");
                 sb.Append("height=" + Height.ToString() + ">");
                 sb.Append("</iframe>");

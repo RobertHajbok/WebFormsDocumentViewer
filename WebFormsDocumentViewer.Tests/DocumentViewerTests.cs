@@ -51,6 +51,16 @@ namespace WebFormsDocumentViewer.Tests
         }
 
         [Test]
+        public void BuildControl_When_IdIsSet_Then_IFrameIsSetUpWithIdAttribute()
+        {
+            DocumentViewer documentViewer = new DocumentViewer
+            {
+                ID = "test"
+            };
+            Assert.That(documentViewer.BuildControl("", "sample.pdf", "", "", "", "").ToString(), Is.EqualTo("<iframe id=test src=/sample.pdf width= height=></iframe>"));
+        }
+
+        [Test]
         [Category("INTEGRATION")]
         public void BuildControl_When_FileCannotBeConverted_Then_DocumentIsNotDisplayed()
         {
